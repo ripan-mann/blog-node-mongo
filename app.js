@@ -7,9 +7,10 @@ const blogRoutes = require('./routes/blogRoutes');
 const app = express();
 
 // connect to mongodb & listen for requests
-const dbURI = "mongodb+srv://ripanmann1:Qawsedrft13@node-tuts.8ynwoxq.mongodb.net/node-tuts?retryWrites=true&w=majority";
+// const dbURI = "mongodb+srv://ripanmann1:Qawsedrft13@node-tuts.8ynwoxq.mongodb.net/node-tuts?retryWrites=true&w=majority";
+const uri = process.env.MONGODB_URI;
 
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(result => app.listen(3000))
     .catch(err => console.log(err));
 
