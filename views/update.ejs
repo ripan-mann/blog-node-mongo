@@ -1,0 +1,49 @@
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+    <body>
+        <%- include("./partials/nav.ejs") %>
+
+            <div class="details content">
+                <div class="create-blog content">
+                    <form action="/blogs" method="POST">
+                        <label for="title">Blog title:</label>
+                        <input type="text" id="title" name="title" text="<%= blog.title %>" required>
+                        <label for="snippet">Blog snippet:</label>
+                        <input type="text" id="snippet" name="snippet" text="<%= blog.snippet %>" required>
+                        <label for="body">Blog body:</label>
+                        <textarea id="body" name="body" text="<%= blog.body %>" required></textarea>
+                        <button>Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            <%- include("./partials/footer.ejs") %>
+
+                <script>
+                    // AJAX Request
+                    const updateBtn = document.querySelector('a.update');
+                    updateBtn.addEventListener('click', (e) => {
+                        const endpoint = `/blogs/${updateBtn.dataset.doc}`;
+                        fetch(endpoint, {
+                            method: 'PUT',
+                        })
+                            .then(response => response.json())
+                            .then(data => window.location.href = data.redirect)
+                            .catch(err => console.log(err));
+                    });
+                    const trashcan = document.querySelector('a.delete');
+                    trashcan.addEventListener('click', (e) => {
+                        const endpoint = `/blogs/${trashcan.dataset.doc}`;
+                        fetch(endpoint, {
+                            method: 'DELETE',
+                        })
+                            .then(response => response.json())
+                            .then(data => window.location.href = data.redirect)
+                            .catch(err => console.log(err));
+                    });
+
+                </script>
+    </body>
+
+</html>
