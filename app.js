@@ -11,7 +11,7 @@ const app = express();
 const uri = process.env.MONGODB_URI;
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(result => app.listen(process.env.PORT))
+    .then(result => app.listen(process.env.PORT || 3000))
     .catch(err => console.log(err));
 
 // register view engine
